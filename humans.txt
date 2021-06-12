@@ -1,0 +1,13 @@
+# www.humanstxt.org/
+
+/* Team */
+
+Developer: Brayden Carlson
+Contact: braycarlson@hotmail.com
+Location: Alberta, Canada
+
+/* Website */
+
+Last update: 2021/06/12
+Software: Sublime Text 4
+Components: HTML5, CSS3 and Javascript
