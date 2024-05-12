@@ -6,20 +6,43 @@ import LoadingScreen from "./Loading";
 
 const Hero: React.FC = () => {
     const scrollButton = useRef<HTMLDivElement>(null);
-    const particles = useRef(false);
     const [loading, setLoading] = useState(true);
-    const [start, _] = useState(Date.now());
+    const [progress, setProgress] = useState(0);
+    const [opacity, setOpacity] = useState("opacity-100");
 
     useEffect(() => {
-        initParticlesEngine(async (engine) => {
-            await loadSlim(engine);
-        }).then(() => {
-            particles.current = true;
-            setLoading(false);
-        });
-    }, []);
+        let updater: number;
 
-    const estimated = Date.now() - start;
+        const setup = async () => {
+            await initParticlesEngine(async (engine) => {
+                updater = setInterval(() => {
+                    setProgress((previous) => {
+                        if (previous >= 95) {
+                            clearInterval(updater);
+                            return 95;
+                        }
+                        return previous + 1;
+                    });
+                }, 100);
+
+                await loadSlim(engine);
+                clearInterval(updater);
+                setTimeout(() => {
+                    setOpacity("opacity-0");
+                    setTimeout(() => {
+                        setLoading(false);
+                        setOpacity("opacity-100");
+                    }, 500);
+                }, 500);
+            });
+        };
+
+        setup();
+
+        return () => {
+            if (updater) clearInterval(updater);
+        };
+    }, []);
 
     useEffect(() => {
         const scroll = () => {
@@ -114,11 +137,13 @@ const Hero: React.FC = () => {
     }), []);
 
     if (loading) {
-        return <LoadingScreen estimated={estimated} />;
+        return <div className={`w-screen transition-opacity duration-500 ${opacity}`}>
+            <LoadingScreen progress={progress} />
+        </div>;
     }
 
     return (
-        <div id="hero" className="relative flex items-center justify-center h-screen bg-rose-pine-surface relative overflow-hidden">
+        <div id="hero" className={`relative flex items-center justify-center h-screen bg-rose-pine-surface overflow-hidden transition-opacity duration-500 ${opacity}`}>
             {(
                 <Particles
                     id="tsparticles"

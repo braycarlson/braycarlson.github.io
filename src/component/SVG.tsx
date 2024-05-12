@@ -10,6 +10,7 @@ const SVG = () => {
     const [baseScale, setBaseScale] = useState(1.0);
     const [manualScale, setManualScale] = useState(1.0);
     const [dimensions, setDimensions] = useState({ width: 800, height: 600 });
+    const [opacity, setOpacity] = useState(false);
 
     useEffect(() => {
         const updateScale = () => {
@@ -34,11 +35,11 @@ const SVG = () => {
     }, []);
 
     useEffect(() => {
-        const objectLoadHandler = () => {
-            const svgDocument = element.current?.contentDocument;
+        const load = () => {
+            const current = element.current?.contentDocument;
 
-            if (svgDocument) {
-                const svg = svgDocument.querySelector("svg");
+            if (current) {
+                const svg = current.querySelector("svg");
 
                 if (svg) {
                     setDimensions({
@@ -52,12 +53,14 @@ const SVG = () => {
                     svg.querySelectorAll("rect").forEach((rect: SVGRectElement) => rect.style.fill = "#e0def4");
                 }
             }
+
+            setOpacity(true);
         };
 
-        element.current?.addEventListener("load", objectLoadHandler);
+        element.current?.addEventListener("load", load);
 
         return () => {
-            element.current?.removeEventListener("load", objectLoadHandler);
+            element.current?.removeEventListener("load", load);
         };
     }, []);
 
@@ -88,7 +91,7 @@ const SVG = () => {
                 </button>
             </div>
 
-            <div className="bg-rose-pine-surface overflow-hidden relative mx-auto mt-20 mb-20" style={{
+            <div className={`relative mx-auto mt-20 mb-20 overflow-hidden transition-opacity duration-500 ease-in-out ${opacity ? "opacity-100" : "opacity-0"}`} style={{
                 width: `${dimensions.width * baseScale * manualScale}px`,
                 height: `${dimensions.height * baseScale * manualScale}px`
             }}>
