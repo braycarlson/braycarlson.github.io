@@ -27,7 +27,7 @@ const Portfolio: React.FC = () => {
     const filtered = tag ? projects.filter(project => project.tags.includes(tag)) : projects;
 
     return (
-        <div id="portfolio" className="h-fit flex flex-col items-center py-8 pd-4">
+        <div id="portfolio" className="h-fit flex flex-col items-center py-8 pd-4 bg-rose-pine-surface">
             <h2 className="text-rose-pine-iris text-6xl md:text-7xl lg:text-8xl pt-16 mb-20">Portfolio</h2>
 
             <select

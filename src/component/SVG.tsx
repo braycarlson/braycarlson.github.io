@@ -1,66 +1,75 @@
 import { useRef, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { FaDownload, FaPlus, FaMinus, FaArrowLeft } from "react-icons/fa";
-import document from "/src/assets/documents/cv.svg"
-import downloadable from "/src/assets/documents/cv.pdf"
+import document from "/src/assets/documents/cv.svg";
+import downloadable from "/src/assets/documents/cv.pdf";
 
 const SVG = () => {
     const element = useRef<HTMLObjectElement>(null);
     const navigate = useNavigate();
-    const [scale, setScale] = useState(2.0);
-    const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
+    const [baseScale, setBaseScale] = useState(1.0);
+    const [manualScale, setManualScale] = useState(1.0);
+    const [dimensions, setDimensions] = useState({ width: 800, height: 600 });
 
     useEffect(() => {
-        const object = element.current;
+        const updateScale = () => {
+            const width = window.innerWidth;
 
-        const setColor = (svg: SVGSVGElement) => {
-            svg.querySelectorAll('path').forEach((path: SVGPathElement) => path.style.fill = "#e0def4");
-            svg.querySelectorAll('tspan').forEach((tspan: SVGTSpanElement) => tspan.style.fill = "#e0def4");
-            svg.querySelectorAll('text').forEach((text: SVGTextElement) => text.style.fill = "#e0def4");
-            svg.querySelectorAll('rect').forEach((rect: SVGRectElement) => rect.style.fill = "#e0def4");
-        };
-
-        const setSize = (svg: SVGSVGElement) => {
-            if (!dimensions.width || !dimensions.height) {
-                setDimensions({ width: svg.viewBox.baseVal.width, height: svg.viewBox.baseVal.height });
+            if (width < 1200) {
+                const factor = width / 800;
+                setBaseScale(factor);
+                setManualScale(1.0);
+            } else {
+                setBaseScale(1.0);
+                setManualScale(2.0);
             }
         };
 
-        const onLoad = () => {
-            if (object) {
-                const cv = object.contentDocument;
+        window.addEventListener("resize", updateScale);
+        updateScale();
 
-                if (cv) {
-                    const svg = cv.querySelector("svg");
+        return () => {
+            window.removeEventListener("resize", updateScale);
+        };
+    }, []);
 
-                    if (svg) {
-                        setSize(svg);
-                        setColor(svg);
-                    }
+    useEffect(() => {
+        const objectLoadHandler = () => {
+            const svgDocument = element.current?.contentDocument;
+
+            if (svgDocument) {
+                const svg = svgDocument.querySelector("svg");
+
+                if (svg) {
+                    setDimensions({
+                        width: svg.viewBox.baseVal.width,
+                        height: svg.viewBox.baseVal.height
+                    });
+
+                    svg.querySelectorAll("path").forEach((path: SVGPathElement) => path.style.fill = "#e0def4");
+                    svg.querySelectorAll("tspan").forEach((tspan: SVGTSpanElement) => tspan.style.fill = "#e0def4");
+                    svg.querySelectorAll("text").forEach((text: SVGTextElement) => text.style.fill = "#e0def4");
+                    svg.querySelectorAll("rect").forEach((rect: SVGRectElement) => rect.style.fill = "#e0def4");
                 }
             }
         };
 
-        if (object) {
-            object.addEventListener("load", onLoad);
-        }
+        element.current?.addEventListener("load", objectLoadHandler);
 
         return () => {
-            if (object) {
-                object.removeEventListener("load", onLoad);
-            }
+            element.current?.removeEventListener("load", objectLoadHandler);
         };
-    }, [scale, dimensions]);
+    }, []);
 
-    const zoomIn = () => setScale(scale => Math.min(3.0, parseFloat((scale + 0.20).toFixed(2))));
-    const zoomOut = () => setScale(scale => Math.max(1.0, parseFloat((scale - 0.20).toFixed(2))));
+    const zoomIn = () => setManualScale(scale => Math.min(3.0, scale + 0.2));
+    const zoomOut = () => setManualScale(scale => Math.max(1.0, scale - 0.2));
 
     const back = () => navigate(-1);
     const download = () => window.location.href = downloadable;
 
     return (
         <div id="cv" className="py-8 bg-rose-pine-surface">
-            <div className="fixed top-0 left-0 right-0 bg-rose-pine-base text-rose-pine-text flex justify-between items-center p-4 z-10">
+            <div className="fixed top-0 left-0 right-0 px-0 bg-rose-pine-base text-rose-pine-text flex justify-between items-center p-2 z-10">
                 <button onClick={back} className="hover:text-rose-pine-love text-rose-pine-text py-2 px-4 rounded">
                     <FaArrowLeft size={20} />
                 </button>
@@ -69,7 +78,6 @@ const SVG = () => {
                     <button onClick={zoomOut} className="hover:text-rose-pine-love text-rose-pine-text py-2 px-4 rounded">
                         <FaMinus size={20} />
                     </button>
-                    <span className="mx-2 text-lg">Scale: {(scale - 1).toFixed(2)}</span>
                     <button onClick={zoomIn} className="hover:text-rose-pine-love text-rose-pine-text py-2 px-4 rounded">
                         <FaPlus size={20} />
                     </button>
@@ -80,9 +88,9 @@ const SVG = () => {
                 </button>
             </div>
 
-            <div className="overflow-hidden relative mx-auto mt-20 mb-20" style={{
-                width: `${dimensions.width * scale}px`,
-                height: `${dimensions.height * scale}px`
+            <div className="bg-rose-pine-surface overflow-hidden relative mx-auto mt-20 mb-20" style={{
+                width: `${dimensions.width * baseScale * manualScale}px`,
+                height: `${dimensions.height * baseScale * manualScale}px`
             }}>
                 <object type="image/svg+xml" style={{ width: "100%", height: "100%" }} data={document} ref={element}>SVG not supported.</object>
             </div>

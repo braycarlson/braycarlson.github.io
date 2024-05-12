@@ -115,7 +115,7 @@ const Hero: React.FC = () => {
     }
 
     return (
-        <div id="hero" className="relative flex items-center justify-center h-screen bg-rose-pine-base relative overflow-hidden">
+        <div id="hero" className="relative flex items-center justify-center h-screen bg-rose-pine-surface relative overflow-hidden">
             {(
                 <Particles
                     id="tsparticles"
@@ -130,7 +130,7 @@ const Hero: React.FC = () => {
                     <span className="drop-shadow-lg tracking-wide font-prata font-normal text-rose-pine-iris inline-block">Carlson</span>
                 </h1>
 
-                <div className="space-x-10 md:space-x-14">
+                <div className="space-x-8 md:space-x-14">
                     <Link to="/cv" className="drop-shadow-lg tracking-widest text-1xl md:text-2xl lg:text-2xl text-rose-pine-text hover:text-rose-pine-iris-lighter transition duration-300">
                         CV
                     </Link>
