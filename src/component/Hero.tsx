@@ -8,6 +8,7 @@ const Hero: React.FC = () => {
     const scrollButton = useRef<HTMLDivElement>(null);
     const particles = useRef(false);
     const [loading, setLoading] = useState(true);
+    const [start, _] = useState(Date.now());
 
     useEffect(() => {
         initParticlesEngine(async (engine) => {
@@ -17,6 +18,8 @@ const Hero: React.FC = () => {
             setLoading(false);
         });
     }, []);
+
+    const estimated = Date.now() - start;
 
     useEffect(() => {
         const scroll = () => {
@@ -111,7 +114,7 @@ const Hero: React.FC = () => {
     }), []);
 
     if (loading) {
-        return <LoadingScreen />;
+        return <LoadingScreen estimated={estimated} />;
     }
 
     return (
