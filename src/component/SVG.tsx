@@ -19,7 +19,7 @@ const SVG = () => {
             if (width < 1200) {
                 const factor = width / 800;
                 setBaseScale(factor);
-                setManualScale(1.0);
+                setManualScale(1.3);
             } else {
                 setBaseScale(1.0);
                 setManualScale(2.0);
@@ -91,7 +91,7 @@ const SVG = () => {
                 </button>
             </div>
 
-            <div className={`relative mx-auto mt-20 mb-20 overflow-hidden transition-opacity duration-500 ease-in-out ${opacity ? "opacity-100" : "opacity-0"}`} style={{
+            <div className={`relative mx-auto mt-10 mb-2 md:mt-20 md:mb-20 overflow-hidden transition-opacity duration-500 ease-in-out ${opacity ? "opacity-100" : "opacity-0"}`} style={{
                 width: `${dimensions.width * baseScale * manualScale}px`,
                 height: `${dimensions.height * baseScale * manualScale}px`
             }}>

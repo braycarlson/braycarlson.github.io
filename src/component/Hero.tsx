@@ -153,12 +153,12 @@ const Hero: React.FC = () => {
             )}
 
             <div id="container" className="absolute top-0 left-0 z-1 w-full h-full flex flex-col items-center justify-center space-y-2 md:space-y-8 z-10">
-                <h1 className="text-5xl md:text-7xl lg:text-8xl text-center leading-none">
-                    <span className="drop-shadow-lg tracking-wide font-prata font-light text-rose-pine-text inline-block mr-4 mb-0 sm:mb-0">Brayden </span>
+                <h1 className="text-4xl md:text-7xl lg:text-8xl text-center leading-none">
+                    <span className="drop-shadow-lg tracking-wide font-prata font-light text-rose-pine-text inline-block mr-4 md:mr-4 mb-0 sm:mb-0">Brayden </span>
                     <span className="drop-shadow-lg tracking-wide font-prata font-normal text-rose-pine-iris inline-block">Carlson</span>
                 </h1>
 
-                <div className="space-x-8 md:space-x-14">
+                <div className="space-x-4 md:space-x-14">
                     <Link to="/cv" className="drop-shadow-lg tracking-widest text-1xl md:text-2xl lg:text-2xl text-rose-pine-text hover:text-rose-pine-iris transition duration-300">
                         CV
                     </Link>
