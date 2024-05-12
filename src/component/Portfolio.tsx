@@ -9,7 +9,6 @@ import locker from "/src/assets/images/locker.webp";
 import alphares from "/src/assets/images/alphares.webp";
 import composer from "/src/assets/images/composer.webp";
 
-
 const projects = [
     { id: 1, title: "thesis", description: "An undergraduate thesis on deep learning and object detection.", url: "https://github.com/braycarlson/thesis", tags: ["Python"], image: thesis },
     { id: 2, title: "warbler", description: "A pipeline for segmenting, clustering and visualizing Adelaide\"s warbler songs.", url: "https://github.com/braycarlson/warbler", tags: ["Python"], image: warbler },

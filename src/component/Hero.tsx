@@ -69,11 +69,7 @@ const Hero: React.FC = () => {
                 width: 1,
             },
             move: {
-                // direction: "none",
                 enable: true,
-                // outModes: {
-                //     default: "out",
-                // },
                 random: true,
                 speed: 1,
             },
@@ -114,10 +110,12 @@ const Hero: React.FC = () => {
         detectRetina: true,
     }), []);
 
+    if (loading) {
+        return <LoadingScreen />;
+    }
+
     return (
         <div id="hero" className="relative flex items-center justify-center h-screen bg-rose-pine-base relative overflow-hidden">
-            {loading && <LoadingScreen />}
-
             {(
                 <Particles
                     id="tsparticles"
