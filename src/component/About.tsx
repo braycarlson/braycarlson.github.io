@@ -1,4 +1,5 @@
-import React from 'react';
+import React from "react";
+import rose from "/src/assets/images/rose.svg";
 
 const About: React.FC = () => {
     return (
@@ -11,7 +12,7 @@ const About: React.FC = () => {
             </div>
 
             <div className="col-start-7 md:col-start-7 lg:col-start-7 col-span-12 md:col-span-12 lg:col-span-6 flex justify-center items-center">
-                <img src="/src/assets/images/rose.svg" alt="An image of a rose" className="lg:w-64 lg:h-64 opacity-75 hidden lg:block" />
+                <img src={rose} alt="An image of a rose" className="lg:w-64 lg:h-64 opacity-75 hidden lg:block" />
             </div>
         </div>
     );

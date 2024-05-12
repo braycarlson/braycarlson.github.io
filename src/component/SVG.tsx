@@ -1,43 +1,56 @@
-import { useRef, useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { FaDownload, FaPlus, FaMinus, FaArrowLeft } from 'react-icons/fa';
+import { useRef, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { FaDownload, FaPlus, FaMinus, FaArrowLeft } from "react-icons/fa";
+import document from "/src/assets/documents/cv.svg"
+import downloadable from "/src/assets/documents/cv.pdf"
+import LoadingScreen from "./Loading";
 
 const SVG = () => {
-    const objectRef = useRef<HTMLObjectElement>(null);
+    const element = useRef<HTMLObjectElement>(null);
     const navigate = useNavigate();
     const [scale, setScale] = useState(2.0);
     const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        const object = objectRef.current;
+        const object = element.current;
 
-        const setColorAndScale = () => {
+        const setColor = (svg: SVGSVGElement) => {
+            svg.querySelectorAll('path').forEach((path: SVGPathElement) => path.style.fill = "#e0def4");
+            svg.querySelectorAll('tspan').forEach((tspan: SVGTSpanElement) => tspan.style.fill = "#e0def4");
+            svg.querySelectorAll('text').forEach((text: SVGTextElement) => text.style.fill = "#e0def4");
+            svg.querySelectorAll('rect').forEach((rect: SVGRectElement) => rect.style.fill = "#e0def4");
+        };
+
+        const setSize = (svg: SVGSVGElement) => {
+            if (!dimensions.width || !dimensions.height) {
+                setDimensions({ width: svg.viewBox.baseVal.width, height: svg.viewBox.baseVal.height });
+            }
+        };
+
+        const onLoad = () => {
             if (object) {
                 const cv = object.contentDocument;
+
                 if (cv) {
-                    const svg = cv.querySelector('svg');
+                    const svg = cv.querySelector("svg");
 
                     if (svg) {
-                        if (!dimensions.width || !dimensions.height) {
-                            setDimensions({ width: svg.viewBox.baseVal.width, height: svg.viewBox.baseVal.height });
-                        }
-
-                        svg.querySelectorAll('path').forEach((path: SVGPathElement) => path.style.fill = "#e0def4");
-                        svg.querySelectorAll('tspan').forEach((tspan: SVGTSpanElement) => tspan.style.fill = "#e0def4");
-                        svg.querySelectorAll('text').forEach((text: SVGTextElement) => text.style.fill = "#e0def4");
-                        svg.querySelectorAll('rect').forEach((rect: SVGRectElement) => rect.style.fill = "#e0def4");
+                        setSize(svg);
+                        setColor(svg);
+                        setLoading(false);
                     }
                 }
             }
         };
 
         if (object) {
-            object.addEventListener('load', setColorAndScale);
+            object.addEventListener("load", onLoad);
         }
 
         return () => {
             if (object) {
-                object.removeEventListener('load', setColorAndScale);
+                object.removeEventListener("load", onLoad);
             }
         };
     }, [scale, dimensions]);
@@ -46,10 +59,12 @@ const SVG = () => {
     const zoomOut = () => setScale(scale => Math.max(1.0, parseFloat((scale - 0.20).toFixed(2))));
 
     const back = () => navigate(-1);
-    const download = () => window.location.href = '/src/assets/documents/cv.pdf';
+    const download = () => window.location.href = downloadable;
 
     return (
-        <div id="cv" className="py-8 px-4 bg-rose-pine-surface">
+        <div id="cv" className="py-8 bg-rose-pine-surface">
+            {loading && <LoadingScreen />}
+
             <div className="fixed top-0 left-0 right-0 bg-rose-pine-base text-rose-pine-text flex justify-between items-center p-4 z-10">
                 <button onClick={back} className="hover:text-rose-pine-love text-rose-pine-text py-2 px-4 rounded">
                     <FaArrowLeft size={20} />
@@ -74,7 +89,7 @@ const SVG = () => {
                 width: `${dimensions.width * scale}px`,
                 height: `${dimensions.height * scale}px`
             }}>
-                <object type="image/svg+xml" style={{ width: '100%', height: '100%' }} data="/src/assets/documents/cv.svg" ref={objectRef}>SVG not supported.</object>
+                <object type="image/svg+xml" style={{ width: "100%", height: "100%" }} data={document} ref={element}>SVG not supported.</object>
             </div>
         </div>
     );

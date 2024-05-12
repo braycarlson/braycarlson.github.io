@@ -1,5 +1,5 @@
-import React from 'react';
-import SVG from './SVG';
+import React from "react";
+import SVG from "./SVG";
 
 const CV: React.FC = () => {
     return (

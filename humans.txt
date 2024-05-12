@@ -8,6 +8,6 @@ Location: Alberta, Canada
 
 /* Website */
 
-Last update: 2021/06/12
+Last update: 2024/06/12
 Software: Sublime Text 4
-Components: HTML5, CSS3 and Javascript
+Components: React, Typescript, HTML5, and CSS3

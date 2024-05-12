@@ -1,40 +1,43 @@
-import React, { useEffect, useRef, useMemo } from 'react';
+import React, { useEffect, useRef, useMemo, useState } from "react";
 import Particles, { initParticlesEngine } from "@tsparticles/react";
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 import { loadSlim } from "@tsparticles/slim";
+import LoadingScreen from "./Loading";
 
 const Hero: React.FC = () => {
     const scrollButton = useRef<HTMLDivElement>(null);
     const particles = useRef(false);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         initParticlesEngine(async (engine) => {
             await loadSlim(engine);
         }).then(() => {
             particles.current = true;
+            setLoading(false);
         });
     }, []);
 
     useEffect(() => {
         const scroll = () => {
             if (scrollButton.current) {
-                scrollButton.current.style.opacity = (window.scrollY < 50) ? '1' : '0';
-                scrollButton.current.style.visibility = (window.scrollY < 50) ? 'visible' : 'hidden';
+                scrollButton.current.style.opacity = (window.scrollY < 50) ? "1" : "0";
+                scrollButton.current.style.visibility = (window.scrollY < 50) ? "visible" : "hidden";
             }
         };
 
-        window.addEventListener('scroll', scroll);
+        window.addEventListener("scroll", scroll);
 
         return () => {
-            window.removeEventListener('scroll', scroll);
+            window.removeEventListener("scroll", scroll);
         };
     }, []);
 
     const onClick = () => {
-        const about = document.getElementById('about');
+        const about = document.getElementById("about");
 
         if (about) {
-            about.scrollIntoView({ behavior: 'smooth' });
+            about.scrollIntoView({ behavior: "smooth" });
         }
     };
 
@@ -113,6 +116,8 @@ const Hero: React.FC = () => {
 
     return (
         <div id="hero" className="relative flex items-center justify-center h-screen bg-rose-pine-base relative overflow-hidden">
+            {loading && <LoadingScreen />}
+
             {(
                 <Particles
                     id="tsparticles"

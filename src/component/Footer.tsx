@@ -1,5 +1,5 @@
-import { Link } from 'react-router-dom';
-import { FaFileAlt, FaLinkedinIn, FaGithub, FaBehance, FaEnvelope } from 'react-icons/fa';
+import { Link } from "react-router-dom";
+import { FaFileAlt, FaLinkedinIn, FaGithub, FaBehance, FaEnvelope } from "react-icons/fa";
 
 const Footer = () => {
     const getUser = () => "braydencarlson";

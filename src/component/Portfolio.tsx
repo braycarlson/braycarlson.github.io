@@ -1,15 +1,25 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
+import thesis from "/src/assets/images/thesis.webp";
+import warbler from "/src/assets/images/warbler.webp";
+import avs from "/src/assets/images/avs.webp";
+import undertasker from "/src/assets/images/undertasker.webp";
+import asol from "/src/assets/images/asol.webp";
+import senna from "/src/assets/images/senna.webp";
+import locker from "/src/assets/images/locker.webp";
+import alphares from "/src/assets/images/alphares.webp";
+import composer from "/src/assets/images/composer.webp";
+
 
 const projects = [
-    { id: 1, title: 'thesis', description: 'An undergraduate thesis on deep learning and object detection.', url: 'https://github.com/braycarlson/thesis', tags: ['Python'], image: '/src/assets/images/thesis.webp' },
-    { id: 2, title: 'warbler', description: 'A pipeline for segmenting, clustering and visualizing Adelaide\'s warbler songs.', url: 'https://github.com/braycarlson/warbler', tags: ['Python'], image: '/src/assets/images/warbler.webp' },
-    { id: 3, title: 'avs', description: 'A tool for segmenting animal vocalizations.', url: 'https://github.com/braycarlson/avs', tags: ['Python'], image: '/src/assets/images/avs.webp' },
-    { id: 4, title: 'undertasker', description: 'A Windows tool to launch software and execute terminal commands.', url: 'https://github.com/braycarlson/undertasker', tags: ['Rust'], image: '/src/assets/images/undertasker.webp' },
-    { id: 5, title: 'asol', description: 'A library to interact with the LCU API.', url: 'https://github.com/braycarlson/asol', tags: ['Go'], image: '/src/assets/images/asol.webp' },
-    { id: 6, title: 'senna', description: 'A tool to automate League of Legends.', url: 'https://github.com/braycarlson/senna', tags: ['Go'], image: '/src/assets/images/senna.webp' },
-    { id: 7, title: 'locker', description: 'A peripheral locker for Windows.', url: 'https://github.com/braycarlson/locker', tags: ['Go'], image: '/src/assets/images/locker.webp' },
-    { id: 8, title: 'alphares', description: 'A tool to save a custom resolution in Fortnite.', url: 'https://github.com/braycarlson/alphares', tags: ['C++'], image: '/src/assets/images/alphares.webp' },
-    { id: 9, title: 'composer', description: 'A simple and customizable music player.', url: 'https://github.com/braycarlson/composer', tags: ['C++'], image: '/src/assets/images/composer.webp' },
+    { id: 1, title: "thesis", description: "An undergraduate thesis on deep learning and object detection.", url: "https://github.com/braycarlson/thesis", tags: ["Python"], image: thesis },
+    { id: 2, title: "warbler", description: "A pipeline for segmenting, clustering and visualizing Adelaide\"s warbler songs.", url: "https://github.com/braycarlson/warbler", tags: ["Python"], image: warbler },
+    { id: 3, title: "avs", description: "A tool for segmenting animal vocalizations.", url: "https://github.com/braycarlson/avs", tags: ["Python"], image: avs },
+    { id: 4, title: "undertasker", description: "A Windows tool to launch software and execute terminal commands.", url: "https://github.com/braycarlson/undertasker", tags: ["Rust"], image: undertasker },
+    { id: 5, title: "asol", description: "A library to interact with the LCU API.", url: "https://github.com/braycarlson/asol", tags: ["Go"], image: asol },
+    { id: 6, title: "senna", description: "A tool to automate League of Legends.", url: "https://github.com/braycarlson/senna", tags: ["Go"], image: senna },
+    { id: 7, title: "locker", description: "A peripheral locker for Windows.", url: "https://github.com/braycarlson/locker", tags: ["Go"], image: locker },
+    { id: 8, title: "alphares", description: "A tool to save a custom resolution in Fortnite.", url: "https://github.com/braycarlson/alphares", tags: ["C++"], image: alphares },
+    { id: 9, title: "composer", description: "A simple and customizable music player.", url: "https://github.com/braycarlson/composer", tags: ["C++"], image: composer },
 ];
 
 const Portfolio: React.FC = () => {
@@ -23,8 +33,8 @@ const Portfolio: React.FC = () => {
 
             <select
                 className="mb-8 p-2 rounded text-rose-pine-text bg-rose-pine-base border-2 border-rose-pine-muted focus:ring-rose-pine-love focus:border-rose-pine-love"
-                onChange={(e) => setTag(e.target.value === 'all' ? null : e.target.value)}
-                value={tag || ''}
+                onChange={(e) => setTag(e.target.value === "all" ? null : e.target.value)}
+                value={tag || ""}
             >
                 <option value="all">All</option>
                 {tags.map(tag => (
