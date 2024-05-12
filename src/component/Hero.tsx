@@ -8,7 +8,6 @@ const Hero: React.FC = () => {
     const scrollButton = useRef<HTMLDivElement>(null);
     const particles = useRef(false);
     const [loading, setLoading] = useState(true);
-    const [opacity, setOpacity] = useState(0);
 
     useEffect(() => {
         initParticlesEngine(async (engine) => {
@@ -18,12 +17,6 @@ const Hero: React.FC = () => {
             setLoading(false);
         });
     }, []);
-
-    useEffect(() => {
-        if (!loading) {
-            setOpacity(1);
-        }
-    }, [loading]);
 
     useEffect(() => {
         const scroll = () => {
@@ -122,7 +115,7 @@ const Hero: React.FC = () => {
     }
 
     return (
-        <div id="hero" className="relative flex items-center justify-center h-screen bg-rose-pine-surface relative overflow-hidden" style={{ opacity, transition: 'opacity 2.5s ease-in-out' }}>
+        <div id="hero" className="relative flex items-center justify-center h-screen bg-rose-pine-surface relative overflow-hidden">
             {(
                 <Particles
                     id="tsparticles"
@@ -138,16 +131,16 @@ const Hero: React.FC = () => {
                 </h1>
 
                 <div className="space-x-8 md:space-x-14">
-                    <Link to="/cv" className="drop-shadow-lg tracking-widest text-1xl md:text-2xl lg:text-2xl text-rose-pine-text hover:text-rose-pine-iris-lighter transition duration-300">
+                    <Link to="/cv" className="drop-shadow-lg tracking-widest text-1xl md:text-2xl lg:text-2xl text-rose-pine-text hover:text-rose-pine-iris transition duration-300">
                         CV
                     </Link>
-                    <a href="https://linkedin.com/in/braycarlson" className="drop-shadow-lg tracking-widest text-1xl md:text-2xl lg:text-2xl text-rose-pine-text hover:text-rose-pine-iris-lighter transition duration-300" aria-label="LinkedIn of Brayden Carlson" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-                    <a href="https://github.com/braycarlson" className="drop-shadow-lg tracking-widest text-1xl md:text-2xl lg:text-2xl text-rose-pine-text hover:text-rose-pine-iris-lighter transition duration-300" aria-label="GitHub of Brayden Carlson" target="_blank" rel="noopener noreferrer">GitHub</a>
-                    <a href="https://www.behance.net/braycarlson" className="drop-shadow-lg tracking-widest text-1xl md:text-2xl lg:text-2xl text-rose-pine-text hover:text-rose-pine-iris-lighter transition duration-300" aria-label="Behance of Brayden Carlson" target="_blank" rel="noopener noreferrer">Behance</a>
+                    <a href="https://linkedin.com/in/braycarlson" className="drop-shadow-lg tracking-widest text-1xl md:text-2xl lg:text-2xl text-rose-pine-text hover:text-rose-pine-iris transition duration-300" aria-label="LinkedIn of Brayden Carlson" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+                    <a href="https://github.com/braycarlson" className="drop-shadow-lg tracking-widest text-1xl md:text-2xl lg:text-2xl text-rose-pine-text hover:text-rose-pine-iris transition duration-300" aria-label="GitHub of Brayden Carlson" target="_blank" rel="noopener noreferrer">GitHub</a>
+                    <a href="https://www.behance.net/braycarlson" className="drop-shadow-lg tracking-widest text-1xl md:text-2xl lg:text-2xl text-rose-pine-text hover:text-rose-pine-iris transition duration-300" aria-label="Behance of Brayden Carlson" target="_blank" rel="noopener noreferrer">Behance</a>
                 </div>
 
                 <div ref={scrollButton} className="scroll-button fixed bottom-10 w-full flex justify-center">
-                    <button onClick={onClick} className="animate-bounce p-2 rounded-full bg-rose-pine-iris hover:bg-rose-pine-iris-lighter flex items-center justify-center">
+                    <button onClick={onClick} className="animate-bounce p-2 rounded-full bg-rose-pine-iris hover:bg-rose-pine-iris-darker transition duration-300 flex items-center justify-center">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="w-6 h-6">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M19 9l-7 7-7-7" />
                         </svg>

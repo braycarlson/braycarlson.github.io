@@ -47,7 +47,7 @@ const Portfolio: React.FC = () => {
                         <div className="h-full border-2 border-gray-200 border-opacity-60 rounded-lg overflow-hidden">
                             <img className="lg:h-64 md:h-36 w-full object-cover object-center" src={project.image} alt="project" />
                             <div className="p-10">
-                                <h2 className="font-work text-2xl md:text-2xl lg:text-4xl text-rose-pine-iris hover:text-rose-pine-iris-lighter transition duration-300 mb-3"><a href={project.url}>{project.title}</a></h2>
+                                <h2 className="font-work text-2xl md:text-2xl lg:text-4xl text-rose-pine-iris hover:text-rose-pine-text transition duration-300 mb-3"><a href={project.url}>{project.title}</a></h2>
                                 <p className="lg:text-1xl leading-relaxed text-rose-pine-text">{project.description}</p>
                             </div>
                         </div>
@@ -55,7 +55,7 @@ const Portfolio: React.FC = () => {
                 ))}
             </div>
 
-            <p className="text-rose-pine-text text-2xl mb-28 mt-12">You can view more on <a href="https://github.com/braycarlson" className="text-rose-pine-iris hover:text-rose-pine-iris-lighter transition duration-300">GitHub</a>.</p>
+            <p className="text-rose-pine-text text-2xl mb-28 mt-12">You can view more on <a href="https://github.com/braycarlson" className="text-rose-pine-iris hover:text-rose-pine-text transition duration-300">GitHub</a>.</p>
         </div>
     );
 };
