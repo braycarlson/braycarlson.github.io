@@ -1,2 +1,0 @@
-const __vite__fileDeps=["assets/SizeUpdater-6cwIOREO.js","assets/index-D5xLcB5f.js","assets/index-DzWnfo0q.css"],__vite__mapDeps=i=>i.map(i=>__vite__fileDeps[i]);
-import{_ as r}from"./index-D5xLcB5f.js";async function o(t,a=!0){await t.addParticleUpdater("size",async()=>{const{SizeUpdater:e}=await r(()=>import("./SizeUpdater-6cwIOREO.js"),__vite__mapDeps([0,1,2]));return new e},a)}export{o as loadSizeUpdater};
