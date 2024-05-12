@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 
 const LoadingScreen = () => {
     const [progress, setProgress] = useState(0);
+    const [isVisible, setVisible] = useState(true);
 
     useEffect(() => {
         const interval = setInterval(() => {
@@ -11,6 +12,8 @@ const LoadingScreen = () => {
                 }
 
                 clearInterval(interval);
+
+                setTimeout(() => setVisible(false), 500);
                 return 100;
             });
         }, 300);
@@ -18,9 +21,11 @@ const LoadingScreen = () => {
         return () => clearInterval(interval);
     }, []);
 
+    if (!isVisible) return null;
+
     return (
-        <div className="flex items-center justify-center h-screen bg-rose-pine-base text-rose-pine-text">
-            <div className="text-center w-1/2 mx-auto">
+        <div className={`flex items-center justify-center h-screen bg-rose-pine-base text-rose-pine-text transition-opacity duration-500 ${progress === 100 ? 'opacity-0' : 'opacity-100'}`}>
+            <div className="text-center w-1/3 mx-auto">
                 <div className="text-2xl text-rose-pine-text font-work">Loading...</div>
 
                 <div className="w-full bg-rose-pine-overlay-lighter mt-6 p-1">

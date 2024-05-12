@@ -8,6 +8,7 @@ const Hero: React.FC = () => {
     const scrollButton = useRef<HTMLDivElement>(null);
     const particles = useRef(false);
     const [loading, setLoading] = useState(true);
+    const [opacity, setOpacity] = useState(0);
 
     useEffect(() => {
         initParticlesEngine(async (engine) => {
@@ -17,6 +18,12 @@ const Hero: React.FC = () => {
             setLoading(false);
         });
     }, []);
+
+    useEffect(() => {
+        if (!loading) {
+            setOpacity(1);
+        }
+    }, [loading]);
 
     useEffect(() => {
         const scroll = () => {
@@ -115,7 +122,7 @@ const Hero: React.FC = () => {
     }
 
     return (
-        <div id="hero" className="relative flex items-center justify-center h-screen bg-rose-pine-surface relative overflow-hidden">
+        <div id="hero" className="relative flex items-center justify-center h-screen bg-rose-pine-surface relative overflow-hidden" style={{ opacity, transition: 'opacity 2.5s ease-in-out' }}>
             {(
                 <Particles
                     id="tsparticles"
