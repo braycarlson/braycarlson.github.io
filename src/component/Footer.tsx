@@ -19,19 +19,19 @@ const Footer = () => {
                 </div>
 
                 <div className="md:col-span-4 lg:col-span-6 flex flex-wrap justify-center md:justify-end items-center space-x-6">
-                    <Link to="/cv" className="text-rose-pine-iris hover:text-rose-pine-text transition duration-300">
+                    <Link to="/cv" className="text-rose-pine-iris hover:text-rose-pine-love transition duration-300">
                         <FaFileAlt size={20} />
                     </Link>
-                    <button onClick={onClick} className="text-rose-pine-iris hover:text-rose-pine-text transition duration-300">
+                    <button onClick={onClick} className="text-rose-pine-iris hover:text-rose-pine-love transition duration-300">
                         <FaEnvelope size={20} />
                     </button>
-                    <a href="https://linkedin.com/in/braycarlson" className="text-rose-pine-iris hover:text-rose-pine-text transition duration-300">
+                    <a href="https://linkedin.com/in/braycarlson" className="text-rose-pine-iris hover:text-rose-pine-love transition duration-300">
                         <FaLinkedinIn size={24} />
                     </a>
-                    <a href="https://github.com/braycarlson" className="text-rose-pine-iris hover:text-rose-pine-text transition duration-300">
+                    <a href="https://github.com/braycarlson" className="text-rose-pine-iris hover:text-rose-pine-love transition duration-300">
                         <FaGithub size={24} />
                     </a>
-                    <a href="https://behance.net/braycarlson" className="text-rose-pine-iris hover:text-rose-pine-text transition duration-300">
+                    <a href="https://behance.net/braycarlson" className="text-rose-pine-iris hover:text-rose-pine-love transition duration-300">
                         <FaBehance size={24} />
                     </a>
                 </div>

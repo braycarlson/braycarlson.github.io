@@ -86,7 +86,7 @@ const Hero: React.FC = () => {
                     <a href="https://www.behance.net/braycarlson" className="drop-shadow-lg tracking-widest text-1xl md:text-2xl lg:text-2xl text-rose-pine-text hover:text-rose-pine-iris transition duration-300" aria-label="Behance of Brayden Carlson" target="_blank" rel="noopener noreferrer">Behance</a>
                 </div>
 
-                <div className="scroll-button fixed bottom-10 w-full flex justify-center" style={{ opacity: visible ? 1 : 0, visibility: visible ? "visible" : "hidden" }}>                    <button onClick={onClick} className="animate-bounce p-2 rounded-full bg-rose-pine-iris hover:bg-rose-pine-iris-darker transition duration-300 flex items-center justify-center">
+                <div className="scroll-button fixed bottom-10 w-full flex justify-center" style={{ opacity: visible ? 1 : 0, visibility: visible ? "visible" : "hidden" }}>                    <button onClick={onClick} className="animate-bounce p-2 rounded-full bg-rose-pine-iris hover:bg-rose-pine-love transition duration-300 flex items-center justify-center">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="w-6 h-6">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M19 9l-7 7-7-7" />
                         </svg>

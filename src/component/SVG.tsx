@@ -74,20 +74,20 @@ const SVG = () => {
     return (
         <div id="cv" className="py-8 bg-rose-pine-surface">
             <div className="fixed top-0 left-0 right-0 px-0 bg-rose-pine-base text-rose-pine-text flex justify-between items-center p-2 z-10">
-                <button onClick={back} className="hover:text-rose-pine-iris text-rose-pine-text py-2 px-4 rounded">
+                <button onClick={back} className="hover:text-rose-pine-love text-rose-pine-text py-2 px-4 rounded transition duration-300">
                     <FaArrowLeft size={20} />
                 </button>
 
                 <div className="flex items-center">
-                    <button onClick={zoomOut} className="hover:text-rose-pine-iris text-rose-pine-text py-2 px-4 rounded">
+                    <button onClick={zoomOut} className="hover:text-rose-pine-love text-rose-pine-text py-2 px-4 rounded transition duration-300">
                         <FaMinus size={20} />
                     </button>
-                    <button onClick={zoomIn} className="hover:text-rose-pine-iris text-rose-pine-text py-2 px-4 rounded">
+                    <button onClick={zoomIn} className="hover:text-rose-pine-love text-rose-pine-text py-2 px-4 rounded transition duration-300">
                         <FaPlus size={20} />
                     </button>
                 </div>
 
-                <button onClick={download} className="hover:text-rose-pine-iris text-rose-pine-text py-2 px-4 rounded">
+                <button onClick={download} className="hover:text-rose-pine-love text-rose-pine-text py-2 px-4 rounded transition duration-300">
                     <FaDownload size={20} />
                 </button>
             </div>
