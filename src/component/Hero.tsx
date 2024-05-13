@@ -1,15 +1,17 @@
-import React, { useEffect, useMemo, useState } from "react";
-import Particles, { initParticlesEngine } from "@tsparticles/react";
+import React, { useEffect, useState } from "react";
+import { initParticlesEngine } from "@tsparticles/react";
 import { Link } from "react-router-dom";
 import { loadSlim } from "@tsparticles/slim";
-import { useParticles } from "./ParticlesContext";
+
 import LoadingScreen from "./Loading";
+import { Particle, options } from "./Particles";
+import { useParticles } from "./ParticlesContext";
 
 const Hero: React.FC = () => {
     const [loading, setLoading] = useState(false);
     const [opacity, setOpacity] = useState(false);
     const [visible, setVisible] = useState(true);
-    const {initialized, setInitialized} = useParticles();
+    const { initialized, setInitialized } = useParticles();
 
     useEffect(() => {
         if (initialized) {
@@ -17,20 +19,20 @@ const Hero: React.FC = () => {
             setOpacity(true);
         } else {
             const setup = async () => {
-                await initParticlesEngine(async (engine) => {
-                    setLoading(true);
+                setLoading(true);
 
+                await initParticlesEngine(async (engine) => {
                     await loadSlim(engine);
                     setInitialized(true);
-
-                    setLoading(false);
-                    setOpacity(true);
                 });
+
+                setLoading(false);
+                setOpacity(true);
             };
 
             setup();
         }
-    }, [initialized, setInitialized]);
+    }, [initialized]);
 
     useEffect(() => {
         const visibility = () => {
@@ -56,88 +58,13 @@ const Hero: React.FC = () => {
         }
     };
 
-    const options = useMemo(() => ({
-        background: {
-            color: {
-                value: "transparent",
-            },
-        },
-        fullScreen: {
-            enable: false,
-        },
-        particles: {
-            number: {
-                value: 80,
-                density: {
-                    enable: true,
-                    area: 800,
-                },
-            },
-            color: {
-                value: "#c4a7e7",
-            },
-            links: {
-                enable: true,
-                distance: 150,
-                color: "#c4a7e7",
-                opacity: 0.50,
-                width: 1,
-            },
-            move: {
-                enable: true,
-                random: true,
-                speed: 1,
-            },
-            size: {
-                value: { min: 1, max: 5 },
-            },
-            opacity: {
-                value: 0.50,
-            },
-            shape: {
-                type: "circle",
-            },
-        },
-        interactivity: {
-            events: {
-                onHover: {
-                    enable: true,
-                    mode: "repulse"
-                },
-            },
-            modes: {
-                repulse: {
-                    distance: 100,
-                    duration: 0.4,
-                },
-                push: {
-                    quantity: 4,
-                },
-                bubble: {
-                    distance: 200,
-                    size: 40,
-                    duration: 2,
-                }
-            }
-        },
-        fpsLimit: 60,
-        smooth: true,
-        detectRetina: true,
-    }), []);
-
     if (loading) {
         return <LoadingScreen message="Loading..." />;
     }
 
     return (
         <div id="hero" className={`relative flex items-center justify-center h-screen bg-rose-pine-surface overflow-hidden transition-opacity duration-1000 ${opacity ? "opacity-100" : "opacity-0"}`}>
-            {(
-                <Particles
-                    id="tsparticles"
-                    options={options}
-                    className="absolute top-0 left-0 w-full h-full"
-                />
-            )}
+            <Particle options={options} />
 
             <div id="container" className="absolute top-0 left-0 z-1 w-full h-full flex flex-col items-center justify-center space-y-2 md:space-y-8 z-10">
                 <h1 className="text-4xl md:text-7xl lg:text-8xl text-center leading-none">
