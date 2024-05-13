@@ -1,0 +1,2 @@
+const __vite__fileDeps=["assets/Linker-CIah15NL.js","assets/Ranges-D0qEh-zI.js","assets/index-DQ1AMFnD.js","assets/index-ZWYlHK13.css","assets/index-DuC-SrDL.js","assets/OptionsColor-B1ZDFuX2.js","assets/ParticlesInteractorBase-vfDeBun3.js"],__vite__mapDeps=i=>i.map(i=>__vite__fileDeps[i]);
+import{_ as i}from"./index-DQ1AMFnD.js";async function o(t,r=!0){await t.addInteractor("particlesLinks",async a=>{const{Linker:n}=await i(()=>import("./Linker-CIah15NL.js"),__vite__mapDeps([0,1,2,3,4,5,6]));return new n(a)},r)}export{o as loadLinksInteraction};
