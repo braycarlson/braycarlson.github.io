@@ -50,7 +50,7 @@ const Portfolio: React.FC = () => {
                 {filtered.map((project) => (
                     <div key={project.id} className="p-4 md:w-1/3">
                         <div className="h-full border-2 border-gray-200 border-opacity-60 rounded-lg overflow-hidden">
-                            <img className="lg:h-64 md:h-36 w-full object-cover object-center" src={project.image} alt="project" />
+                            <a href={project.url}><img className="lg:h-64 md:h-36 w-full object-cover object-center" src={project.image} alt="project" /></a>
                             <div className="p-10">
                                 <h2 className="font-work text-2xl md:text-2xl lg:text-4xl text-rose-pine-iris hover:text-rose-pine-love transition duration-300 mb-3"><a href={project.url}>{project.title}</a></h2>
                                 <p className="lg:text-1xl leading-relaxed text-rose-pine-text">{project.description}</p>
