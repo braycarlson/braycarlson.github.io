@@ -8,7 +8,6 @@ import LoadingScreen from "./Loading";
 const Hero: React.FC = () => {
     const scrollButton = useRef<HTMLDivElement>(null);
     const [loading, setLoading] = useState(true);
-    const [_, setMessage] = useState("Loading...");
     const [opacity, setOpacity] = useState(false);
     const { initialized, setInitialized } = useParticles();
 
@@ -16,27 +15,25 @@ const Hero: React.FC = () => {
         if (!initialized) {
             const setup = async () => {
                 await initParticlesEngine(async (engine) => {
-                    setMessage("Loading...");
-
                     await loadSlim(engine);
                     setInitialized(true);
-                    setLoading(false);
-                    setOpacity(true);
+
+                    setTimeout(() => {
+                        setTimeout(() => {
+                            setLoading(false);
+                            setOpacity(true);
+                        }, 1000);
+                    }, 5000);
                 });
             };
-
             setup();
         } else {
             setLoading(false);
-            setOpacity(true);
+            setTimeout(() => {
+                setOpacity(true);
+            }, 200);
         }
     }, [initialized, setInitialized]);
-
-    useEffect(() => {
-        if (!loading && !opacity) {
-            setTimeout(() => setOpacity(true), 1000);
-        }
-    }, [loading]);
 
     useEffect(() => {
         const scroll = () => {
@@ -131,11 +128,7 @@ const Hero: React.FC = () => {
     }), []);
 
     if (loading) {
-        return (
-            <div className={`w-screen transition-opacity duration-1000 ${opacity ? 'opacity-100' : 'opacity-0'}`}>
-                <LoadingScreen message="Loading..." />
-            </div>
-        );
+        return <LoadingScreen message="Loading..." />;
     }
 
     return (
