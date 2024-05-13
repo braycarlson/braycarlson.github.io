@@ -1,4 +1,5 @@
 import React from "react";
+
 import rose from "/src/assets/images/rose.svg";
 
 const About: React.FC = () => {

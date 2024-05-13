@@ -1,7 +1,8 @@
-import { useRef, useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { FaDownload, FaPlus, FaMinus, FaArrowLeft } from "react-icons/fa";
-import document from "/src/assets/documents/cv.svg";
+import { FaArrowLeft, FaDownload, FaMinus, FaPlus } from "react-icons/fa";
+
+import cv from "/src/assets/documents/cv.svg";
 import downloadable from "/src/assets/documents/cv.pdf";
 
 const SVG = () => {
@@ -95,7 +96,7 @@ const SVG = () => {
                 width: `${dimensions.width * baseScale * manualScale}px`,
                 height: `${dimensions.height * baseScale * manualScale}px`
             }}>
-                <object type="image/svg+xml" style={{ width: "100%", height: "100%" }} data={document} ref={element}>SVG not supported.</object>
+                <object type="image/svg+xml" style={{ width: "100%", height: "100%" }} data={cv} ref={element}>SVG not supported.</object>
             </div>
         </div>
     );

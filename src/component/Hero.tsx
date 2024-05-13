@@ -73,7 +73,7 @@ const Hero: React.FC = () => {
 
             <div id="container" className="absolute top-0 left-0 z-1 w-full h-full flex flex-col items-center justify-center space-y-2 md:space-y-8 z-10">
                 <h1 className="text-4xl md:text-7xl lg:text-8xl text-center leading-none">
-                    <span className="drop-shadow-lg tracking-wide font-prata font-light text-rose-pine-text inline-block mr-4 md:mr-4 mb-0 sm:mb-0">Brayden </span>
+                    <span className="drop-shadow-lg tracking-wide font-prata font-normal text-rose-pine-text inline-block mr-4 md:mr-4 mb-0 sm:mb-0">Brayden </span>
                     <span className="drop-shadow-lg tracking-wide font-prata font-normal text-rose-pine-iris inline-block">Carlson</span>
                 </h1>
 
