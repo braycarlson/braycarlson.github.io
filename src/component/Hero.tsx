@@ -7,31 +7,33 @@ import LoadingScreen from "./Loading";
 
 const Hero: React.FC = () => {
     const scrollButton = useRef<HTMLDivElement>(null);
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(false);
     const [opacity, setOpacity] = useState(false);
     const { initialized, setInitialized } = useParticles();
 
     useEffect(() => {
-        if (!initialized) {
+        if (initialized) {
+            setLoading(false);
+
+            setTimeout(() => {
+                setOpacity(true);
+            }, 200);
+        } else {
             const setup = async () => {
                 await initParticlesEngine(async (engine) => {
+                    setLoading(true);
+
                     await loadSlim(engine);
                     setInitialized(true);
 
                     setTimeout(() => {
-                        setTimeout(() => {
-                            setLoading(false);
-                            setOpacity(true);
-                        }, 1000);
-                    }, 5000);
+                        setLoading(false);
+                        setOpacity(true);
+                    }, 200);
                 });
             };
+
             setup();
-        } else {
-            setLoading(false);
-            setTimeout(() => {
-                setOpacity(true);
-            }, 200);
         }
     }, [initialized, setInitialized]);
 
