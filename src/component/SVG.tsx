@@ -91,7 +91,7 @@ const SVG = () => {
                 </button>
             </div>
 
-            <div className={`relative mx-auto mt-10 mb-2 md:mt-20 md:mb-20 overflow-hidden transition-opacity duration-500 ease-in-out ${opacity ? "opacity-100" : "opacity-0"}`} style={{
+            <div className={`select-none relative mx-auto mt-10 mb-2 md:mt-20 md:mb-20 overflow-hidden transition-opacity duration-500 ease-in-out ${opacity ? "opacity-100" : "opacity-0"}`} style={{
                 width: `${dimensions.width * baseScale * manualScale}px`,
                 height: `${dimensions.height * baseScale * manualScale}px`
             }}>

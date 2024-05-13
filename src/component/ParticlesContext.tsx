@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, ReactNode } from 'react';
+import React, { createContext, useContext, useState, ReactNode } from "react";
 
 interface ParticlesContextType {
     initialized: boolean;
@@ -11,7 +11,7 @@ export const useParticles = (): ParticlesContextType => {
     const context = useContext(ParticlesContext);
 
     if (context === undefined) {
-        throw new Error('useParticles must be used within a ParticlesProvider');
+        throw new Error("useParticles must be used within a ParticlesProvider");
     }
     return context;
 };

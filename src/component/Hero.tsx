@@ -1,23 +1,20 @@
-import React, { useEffect, useRef, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import Particles, { initParticlesEngine } from "@tsparticles/react";
 import { Link } from "react-router-dom";
 import { loadSlim } from "@tsparticles/slim";
-import { useParticles } from './ParticlesContext';
+import { useParticles } from "./ParticlesContext";
 import LoadingScreen from "./Loading";
 
 const Hero: React.FC = () => {
-    const scrollButton = useRef<HTMLDivElement>(null);
     const [loading, setLoading] = useState(false);
     const [opacity, setOpacity] = useState(false);
-    const { initialized, setInitialized } = useParticles();
+    const [visible, setVisible] = useState(true);
+    const {initialized, setInitialized} = useParticles();
 
     useEffect(() => {
         if (initialized) {
             setLoading(false);
-
-            setTimeout(() => {
-                setOpacity(true);
-            }, 200);
+            setOpacity(true);
         } else {
             const setup = async () => {
                 await initParticlesEngine(async (engine) => {
@@ -26,10 +23,8 @@ const Hero: React.FC = () => {
                     await loadSlim(engine);
                     setInitialized(true);
 
-                    setTimeout(() => {
-                        setLoading(false);
-                        setOpacity(true);
-                    }, 200);
+                    setLoading(false);
+                    setOpacity(true);
                 });
             };
 
@@ -38,17 +33,18 @@ const Hero: React.FC = () => {
     }, [initialized, setInitialized]);
 
     useEffect(() => {
-        const scroll = () => {
-            if (scrollButton.current) {
-                scrollButton.current.style.opacity = (window.scrollY < 50) ? "1" : "0";
-                scrollButton.current.style.visibility = (window.scrollY < 50) ? "visible" : "hidden";
-            }
+        const visibility = () => {
+            setVisible(window.scrollY < 50);
         };
 
-        window.addEventListener("scroll", scroll);
+        window.addEventListener("scroll", visibility);
+        visibility();
+
+        const interval = setInterval(visibility, 1000);
 
         return () => {
-            window.removeEventListener("scroll", scroll);
+            window.removeEventListener("scroll", visibility);
+            clearInterval(interval);
         };
     }, []);
 
@@ -134,7 +130,7 @@ const Hero: React.FC = () => {
     }
 
     return (
-        <div id="hero" className={`relative flex items-center justify-center h-screen bg-rose-pine-surface overflow-hidden transition-opacity duration-1000 ${opacity ? 'opacity-100' : 'opacity-0'}`}>
+        <div id="hero" className={`relative flex items-center justify-center h-screen bg-rose-pine-surface overflow-hidden transition-opacity duration-1000 ${opacity ? "opacity-100" : "opacity-0"}`}>
             {(
                 <Particles
                     id="tsparticles"
@@ -158,8 +154,7 @@ const Hero: React.FC = () => {
                     <a href="https://www.behance.net/braycarlson" className="drop-shadow-lg tracking-widest text-1xl md:text-2xl lg:text-2xl text-rose-pine-text hover:text-rose-pine-iris transition duration-300" aria-label="Behance of Brayden Carlson" target="_blank" rel="noopener noreferrer">Behance</a>
                 </div>
 
-                <div ref={scrollButton} className="scroll-button fixed bottom-10 w-full flex justify-center">
-                    <button onClick={onClick} className="animate-bounce p-2 rounded-full bg-rose-pine-iris hover:bg-rose-pine-iris-darker transition duration-300 flex items-center justify-center">
+                <div className="scroll-button fixed bottom-10 w-full flex justify-center" style={{ opacity: visible ? 1 : 0, visibility: visible ? "visible" : "hidden" }}>                    <button onClick={onClick} className="animate-bounce p-2 rounded-full bg-rose-pine-iris hover:bg-rose-pine-iris-darker transition duration-300 flex items-center justify-center">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="w-6 h-6">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M19 9l-7 7-7-7" />
                         </svg>
