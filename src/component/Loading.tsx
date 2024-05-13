@@ -1,18 +1,15 @@
 import React from "react";
 
 interface LoadingScreenProps {
-    progress: number;
+    message: string;
 }
 
-const LoadingScreen: React.FC<LoadingScreenProps> = ({ progress }) => {
+const LoadingScreen: React.FC<LoadingScreenProps> = ({ message }) => {
     return (
         <div className="flex items-center justify-center h-screen bg-rose-pine-base text-rose-pine-text">
-            <div className="text-center w-1/2 mx-auto">
-                <div className="text-2xl font-work">Loading...</div>
-                <div className="w-full bg-rose-pine-overlay-lighter mt-6 p-1">
-                    <div style={{ width: `${progress}%` }} className="font-work bg-rose-pine-iris transition-width duration-300 h-3"></div>
-                </div>
-                <div className="text-lg font-medium text-rose-pine-iris mt-4">{Math.min(Math.floor(progress), 100)}%</div>
+            <div className="text-center pb-20">
+                <div className="mb-5 w-20 h-20 mx-auto border-8 border-t-rose-pine-iris border-rose-pine-text rounded-full animate-spin"></div>
+                <div className="text-2xl font-medium mt-4">{message}</div>
             </div>
         </div>
     );

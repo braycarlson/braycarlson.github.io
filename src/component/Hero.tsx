@@ -2,47 +2,45 @@ import React, { useEffect, useRef, useMemo, useState } from "react";
 import Particles, { initParticlesEngine } from "@tsparticles/react";
 import { Link } from "react-router-dom";
 import { loadSlim } from "@tsparticles/slim";
+import { useParticles } from './ParticlesContext';
 import LoadingScreen from "./Loading";
 
 const Hero: React.FC = () => {
     const scrollButton = useRef<HTMLDivElement>(null);
     const [loading, setLoading] = useState(true);
-    const [progress, setProgress] = useState(0);
+    const [message, setMessage] = useState("Starting...");
     const [opacity, setOpacity] = useState("opacity-100");
+    const { initialized, setInitialized } = useParticles();
 
     useEffect(() => {
-        let updater: number;
+        if (!initialized) {
+            setMessage("Initializing...");
+            const setup = async () => {
+                await initParticlesEngine(async (engine) => {
+                    setMessage("Configuring...");
+                    await loadSlim(engine);
+                    setMessage("Finalizing...");
+                    setInitialized(true);
+                    setMessage("Done");
 
-        const setup = async () => {
-            await initParticlesEngine(async (engine) => {
-                updater = setInterval(() => {
-                    setProgress((previous) => {
-                        if (previous >= 95) {
-                            clearInterval(updater);
-                            return 95;
-                        }
-                        return previous + 1;
-                    });
-                }, 100);
-
-                await loadSlim(engine);
-                clearInterval(updater);
-                setTimeout(() => {
-                    setOpacity("opacity-0");
+                    // Manage the transition only after setup is complete
                     setTimeout(() => {
-                        setLoading(false);
-                        setOpacity("opacity-100");
-                    }, 500);
-                }, 500);
-            });
-        };
+                        setOpacity("opacity-0");
+                        setTimeout(() => {
+                            setLoading(false);
+                            setOpacity("opacity-100");
+                        }, 500);
+                    }, 1000);
+                });
+            };
+            setup();
+        } else {
+            // Immediately set to no loading and no opacity change if cached
+            setMessage("Already initialized");
+            setLoading(false);
+        }
+    }, [initialized, setInitialized]);
 
-        setup();
-
-        return () => {
-            if (updater) clearInterval(updater);
-        };
-    }, []);
 
     useEffect(() => {
         const scroll = () => {
@@ -138,13 +136,12 @@ const Hero: React.FC = () => {
 
     if (loading) {
         return <div className={`w-screen transition-opacity duration-500 ${opacity}`}>
-            <LoadingScreen progress={progress} />
+            <LoadingScreen message={message} />
         </div>;
     }
 
     return (
-        <div id="hero" className={`relative flex items-center justify-center h-screen bg-rose-pine-surface overflow-hidden transition-opacity duration-500 ${opacity}`}>
-            {(
+        <div id="hero" className={`relative flex items-center justify-center h-screen bg-rose-pine-surface overflow-hidden transition-opacity duration-500 ${opacity}`}>            {(
                 <Particles
                     id="tsparticles"
                     options={options}
