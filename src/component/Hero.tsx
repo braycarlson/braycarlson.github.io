@@ -16,23 +16,28 @@ const Hero: React.FC = () => {
     useEffect(() => {
         if (initialized) {
             setLoading(false);
-            setOpacity(true);
+
+            setTimeout(() => {
+                setOpacity(true);
+            }, 100);
         } else {
             const setup = async () => {
-                setLoading(true);
-
                 await initParticlesEngine(async (engine) => {
+                    setLoading(true);
+
                     await loadSlim(engine);
                     setInitialized(true);
-                });
 
-                setLoading(false);
-                setOpacity(true);
+                    setTimeout(() => {
+                        setLoading(false);
+                        setOpacity(true);
+                    }, 100);
+                });
             };
 
             setup();
         }
-    }, [initialized]);
+    }, [initialized, setInitialized]);
 
     useEffect(() => {
         const visibility = () => {
