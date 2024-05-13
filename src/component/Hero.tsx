@@ -8,39 +8,28 @@ import LoadingScreen from "./Loading";
 const Hero: React.FC = () => {
     const scrollButton = useRef<HTMLDivElement>(null);
     const [loading, setLoading] = useState(true);
-    const [message, setMessage] = useState("Starting...");
-    const [opacity, setOpacity] = useState("opacity-100");
+    const [message, setMessage] = useState("Loading...");
     const { initialized, setInitialized } = useParticles();
 
     useEffect(() => {
         if (!initialized) {
-            setMessage("Initializing...");
             const setup = async () => {
                 await initParticlesEngine(async (engine) => {
-                    setMessage("Configuring...");
-                    await loadSlim(engine);
-                    setMessage("Finalizing...");
-                    setInitialized(true);
-                    setMessage("Done");
+                    setMessage("Loading...");
 
-                    // Manage the transition only after setup is complete
+                    await loadSlim(engine);
+                    setInitialized(true);
+
                     setTimeout(() => {
-                        setOpacity("opacity-0");
-                        setTimeout(() => {
-                            setLoading(false);
-                            setOpacity("opacity-100");
-                        }, 500);
-                    }, 1000);
+                        setLoading(false);
+                    }, 500);
                 });
             };
             setup();
         } else {
-            // Immediately set to no loading and no opacity change if cached
-            setMessage("Already initialized");
             setLoading(false);
         }
     }, [initialized, setInitialized]);
-
 
     useEffect(() => {
         const scroll = () => {
@@ -135,13 +124,14 @@ const Hero: React.FC = () => {
     }), []);
 
     if (loading) {
-        return <div className={`w-screen transition-opacity duration-500 ${opacity}`}>
+        return <div className={`w-screen transition-opacity duration-500`}>
             <LoadingScreen message={message} />
         </div>;
     }
 
     return (
-        <div id="hero" className={`relative flex items-center justify-center h-screen bg-rose-pine-surface overflow-hidden transition-opacity duration-500 ${opacity}`}>            {(
+        <div id="hero" className={`relative flex items-center justify-center h-screen bg-rose-pine-surface overflow-hidden transition-opacity duration-500`}>
+            {(
                 <Particles
                     id="tsparticles"
                     options={options}
