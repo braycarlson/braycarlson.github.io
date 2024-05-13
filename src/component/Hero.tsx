@@ -8,7 +8,8 @@ import LoadingScreen from "./Loading";
 const Hero: React.FC = () => {
     const scrollButton = useRef<HTMLDivElement>(null);
     const [loading, setLoading] = useState(true);
-    const [message, setMessage] = useState("Loading...");
+    const [_, setMessage] = useState("Loading...");
+    const [opacity, setOpacity] = useState(false);
     const { initialized, setInitialized } = useParticles();
 
     useEffect(() => {
@@ -19,17 +20,23 @@ const Hero: React.FC = () => {
 
                     await loadSlim(engine);
                     setInitialized(true);
-
-                    setTimeout(() => {
-                        setLoading(false);
-                    }, 500);
+                    setLoading(false);
+                    setOpacity(true);
                 });
             };
+
             setup();
         } else {
             setLoading(false);
+            setOpacity(true);
         }
     }, [initialized, setInitialized]);
+
+    useEffect(() => {
+        if (!loading && !opacity) {
+            setTimeout(() => setOpacity(true), 1000);
+        }
+    }, [loading]);
 
     useEffect(() => {
         const scroll = () => {
@@ -124,13 +131,15 @@ const Hero: React.FC = () => {
     }), []);
 
     if (loading) {
-        return <div className={`w-screen transition-opacity duration-500`}>
-            <LoadingScreen message={message} />
-        </div>;
+        return (
+            <div className={`w-screen transition-opacity duration-1000 ${opacity ? 'opacity-100' : 'opacity-0'}`}>
+                <LoadingScreen message="Loading..." />
+            </div>
+        );
     }
 
     return (
-        <div id="hero" className={`relative flex items-center justify-center h-screen bg-rose-pine-surface overflow-hidden transition-opacity duration-500`}>
+        <div id="hero" className={`relative flex items-center justify-center h-screen bg-rose-pine-surface overflow-hidden transition-opacity duration-1000 ${opacity ? 'opacity-100' : 'opacity-0'}`}>
             {(
                 <Particles
                     id="tsparticles"
